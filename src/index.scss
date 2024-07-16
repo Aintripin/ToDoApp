@@ -61,7 +61,7 @@ label {
   }
 }
 
-[color-scheme="dark"] {
+:root[color-scheme="dark"] {
   --bg: var(--bg--dark);
   --txt: var(--txt--dark);
   --accent: var(--accent--dark);
@@ -70,7 +70,7 @@ label {
   color-scheme: dark;
 }
 
-[color-scheme="light"] {
+:root[color-scheme="light"] {
   --bg: var(--bg--light);
   --txt: var(--txt--light);
   --accent: var(--accent--light);
