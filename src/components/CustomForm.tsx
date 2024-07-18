@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PlusIcon } from "@heroicons/react/16/solid";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 type Task = {
   name: string;
@@ -8,13 +8,11 @@ type Task = {
 };
 
 interface CustomFormProps extends React.HTMLAttributes<HTMLFormElement> {
-  addTask: (task_obj: Task) => void;
+  addTask: (task: Task) => void;
 }
 
-const CustomForm: React.FC<CustomFormProps> = ({
-  addTask,
-}: CustomFormProps) => {
-  const [task, setTask] = useState("");
+const CustomForm: React.FC<CustomFormProps> = ({ addTask }) => {
+  const [task, setTask] = useState<string>("");
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +32,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
           id="task"
           className="input"
           value={task}
-          onInput={(e) => {
+          onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
             setTask(e.target.value);
           }}
           required

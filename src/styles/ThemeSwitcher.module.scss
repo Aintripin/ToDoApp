@@ -1,9 +1,21 @@
+$wrapper-padding: 1em 2em;
+$btns-gap: 1em;
+$picker-height: calc(var(--wrapperSize) * 0.2);
+$picker-box-shadow: 0 0 0.8em hsl(var(--accent) / 0.4);
+$picker-border-radius: 100vmax;
+$slider-thumb-height: calc(var(--wrapperSize) * 0.35);
+$slider-thumb-width: calc(var(--wrapperSize) * 0.35);
+$slider-thumb-box-shadow: 0 0 0 0.25em hsl(var(--muted)),
+  0 0 0 -0.4em hsl(var(--accent) / 0.8);
+$slider-thumb-focus-box-shadow: 0 0 0 0.25em hsl(var(--muted)),
+  0 0 0 0.45em hsl(var(--accent) / 0.8);
+
 .wrapper {
   position: fixed;
   bottom: 0;
   left: 0;
   --wrapperSize: clamp(4em, 3vmax, 7em);
-  padding: 1em 2em;
+  padding: $wrapper-padding;
   width: 100%;
   display: grid;
   --_size: 1.5rem;
@@ -12,22 +24,18 @@
 
 .btns {
   display: flex;
-  gap: 1em;
-}
-
-.picker:focus {
-  outline: none;
+  gap: $btns-gap;
 }
 
 .picker {
   appearance: none;
   -webkit-appearance: none;
   outline: none;
-  height: calc(var(--wrapperSize) * 0.2);
+  height: $picker-height;
   width: 100%;
   border: 0.2em solid hsl(var(--muted));
-  box-shadow: 0 0 0.8em hsl(var(--accent) / 0.4);
-  border-radius: 100vmax;
+  box-shadow: $picker-box-shadow;
+  border-radius: $picker-border-radius;
   background: linear-gradient(
     to right,
     hsl(0, 50%, 50%),
@@ -46,24 +54,26 @@
     hsl(325, 50%, 50%),
     hsl(350, 50%, 50%)
   );
-}
 
-.picker::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: calc(var(--wrapperSize) * 0.35);
-  width: calc(var(--wrapperSize) * 0.35);
-  border: none;
-  box-shadow: 0 0 0 0.25em hsl(var(--muted)),
-    0 0 0 -0.4em hsl(var(--accent) / 0.8);
-  border-radius: 100vmax;
-  background-color: hsl(var(--accent));
-  cursor: ew-resize;
-}
+  &:focus {
+    outline: none;
+  }
 
-.picker:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 0.25em hsl(var(--muted)),
-    0 0 0 0.45em hsl(var(--accent) / 0.8);
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: $slider-thumb-height;
+    width: $slider-thumb-width;
+    border: none;
+    box-shadow: $slider-thumb-box-shadow;
+    border-radius: $picker-border-radius;
+    background-color: hsl(var(--accent));
+    cursor: ew-resize;
+
+    &:focus {
+      box-shadow: $slider-thumb-focus-box-shadow;
+    }
+  }
 }
 
 .close {

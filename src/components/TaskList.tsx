@@ -1,9 +1,21 @@
+import React from "react";
 import TaskItem from "./TaskItem";
 import styles from "../styles/TaskList.module.scss";
 
-interface TaskListProps extends React.HTMLAttributes<HTMLUListElement> {}
+type Task = {
+  id: number;
+  name: string;
+  checked: boolean;
+};
 
-const TaskList = ({
+interface TaskListProps extends React.HTMLAttributes<HTMLUListElement> {
+  tasks: Task[];
+  deleteTask: (id: number) => void;
+  toggleTask: (id: number) => void;
+  enterEditMode: (task: Task) => void;
+}
+
+const TaskList: React.FC<TaskListProps> = ({
   tasks,
   deleteTask,
   toggleTask,

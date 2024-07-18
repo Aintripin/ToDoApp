@@ -1,19 +1,27 @@
+$task-gap: 0.6em;
+$taskgroup-gap: 0.5em;
+$task-padding: 0.6em;
+$checkbox-size: 1em;
+$checkmark-size: 0.75em;
+$transition-speed-fast: var(--_tspeed_fast);
+$border-radius: var(--_radius);
+$font-size: var(--_size);
+
 .task {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.6em;
-  font-size: var(--_size);
+  gap: $task-gap;
+  font-size: $font-size;
   border: 0.2em solid hsl(var(--muted) / 0.8);
-  padding: 0.6em;
-  border-radius: calc(var(--_radius) * 2);
+  padding: $task-padding;
+  border-radius: calc($border-radius * 2);
 }
 
 .task-group {
   display: flex;
   align-items: center;
-  --taskgroup-gap: 0.5em;
-  gap: var(--taskgroup-gap);
+  gap: $taskgroup-gap;
 }
 
 .label {
@@ -26,51 +34,51 @@
 .checkbox {
   flex-shrink: 0;
   appearance: none;
-  border-radius: var(--_radius);
-  width: 1em;
-  height: 1em;
+  border-radius: $border-radius;
+  width: $checkbox-size;
+  height: $checkbox-size;
   background-color: hsl(var(--muted));
-  border-radius: var(--_radius);
+  border-radius: $border-radius;
   box-shadow: 0 0 0.5em hsl(var(--accent) / 0.1),
     0 0 0 0.05em hsl(var(--accent) / 0.5), 0 0 0 -0.2em hsl(var(--accent));
-  transition: box-shadow var(--_tspeed_fast) ease-in-out,
+  transition: box-shadow $transition-speed-fast ease-in-out,
     background-color 80ms ease-in-out;
-}
 
-.checkbox:focus {
-  outline: none;
-}
+  &:focus {
+    outline: none;
+  }
 
-.checkbox:is(:focus-visible, :hover) {
-  box-shadow: 0 0 0 hsl(var(--bg)), 0 0 0 0.05em hsl(var(--accent)),
-    0 0 0 0.225em hsl(var(--accent) / 0.3);
+  &:is(:focus-visible, :hover) {
+    box-shadow: 0 0 0 hsl(var(--bg)), 0 0 0 0.05em hsl(var(--accent)),
+      0 0 0 0.225em hsl(var(--accent) / 0.3);
+  }
+
+  &:checked {
+    background-color: hsl(var(--accent));
+
+    + label {
+      text-decoration: line-through;
+    }
+  }
 }
 
 .checkmark {
   content: "";
   position: absolute;
-  width: 1em;
-  height: 1em;
+  width: $checkbox-size;
+  height: $checkbox-size;
   display: grid;
   place-items: center;
   top: 50%;
   color: hsl(var(--muted));
-  border-radius: var(--_radius);
-  transform: translate3d(calc(-100% - var(--taskgroup-gap)), -50%, 0);
+  border-radius: $border-radius;
+  transform: translate3d(calc(-100% - $taskgroup-gap), -50%, 0);
   transition: background-color 80ms ease-in-out;
-}
 
-.checkmark svg {
-  width: 0.75em;
-  height: 0.75em;
-}
-
-.checkbox:checked {
-  background-color: hsl(var(--accent));
-}
-
-.checkbox:checked + label {
-  text-decoration: line-through;
+  svg {
+    width: $checkmark-size;
+    height: $checkmark-size;
+  }
 }
 
 .delete {
@@ -79,7 +87,7 @@
 
 .loading {
   color: hsl(var(--accent));
-  font-size: var(--_size);
+  font-size: $font-size;
   font-weight: bold;
   animation: pulse 2s infinite ease-in-out;
 }
@@ -97,6 +105,6 @@
 
 .error {
   color: hsl(var(--accent1));
-  font-size: var(--_size);
+  font-size: $font-size;
   text-align: center;
 }

@@ -14,14 +14,12 @@ import useLocalStorage from "../hooks/useLocalStorage";
 // Styles
 import styles from "../styles/ThemeSwitcher.module.scss";
 
-const ThemeSwitcher = () => {
+const ThemeSwitcher: React.FC = () => {
   const [isColorPicking, setIsColorPicking] = useState(false);
-  //   const [hue, setHue] = useState(240);
-  const [hue, setHue] = useLocalStorage("react-todo.color", "240");
+  const [hue, setHue] = useLocalStorage<string>("react-todo.color", "240");
 
   const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  //   const [theme, setTheme] = useState("dark");
-  const [theme, setTheme] = useLocalStorage(
+  const [theme, setTheme] = useLocalStorage<string>(
     "react-todo.theme",
     defaultDark ? "dark" : "light"
   );
@@ -52,9 +50,7 @@ const ThemeSwitcher = () => {
           <button
             className={`btn ${styles.close}`}
             aria-label="Close Color Picking Mode"
-            onClick={() => {
-              setIsColorPicking(false);
-            }}
+            onClick={() => setIsColorPicking(false)}
           >
             <XMarkIcon />
           </button>
@@ -65,9 +61,9 @@ const ThemeSwitcher = () => {
             max={360}
             aria-label="Change Color Theme Slider"
             value={hue}
-            onInput={(e) => {
-              setHue(e.target.value);
-            }}
+            onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setHue(e.target.value)
+            }
           />
         </>
       ) : (

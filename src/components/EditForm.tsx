@@ -7,14 +7,20 @@ type Task = {
   id: number;
 };
 
-interface CustomFormProps extends React.HTMLAttributes<HTMLFormElement> {}
+interface EditFormProps extends React.HTMLAttributes<HTMLFormElement> {
+  editedTask: Task;
+  updateTask: (task: Task) => void;
+  closeEditMode: () => void;
+}
 
-const EditForm: React.FC<CustomFormProps> = ({
+const EditForm: React.FC<EditFormProps> = ({
   editedTask,
   updateTask,
   closeEditMode,
-}: CustomFormProps) => {
-  const [updatedTaskName, setUpdatedTaskName] = useState(editedTask.name);
+}: EditFormProps) => {
+  const [updatedTaskName, setUpdatedTaskName] = useState<string>(
+    editedTask.name
+  );
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,8 +28,8 @@ const EditForm: React.FC<CustomFormProps> = ({
   };
 
   useEffect(() => {
-    const closeModalIfEscaped = (e) => {
-      e.key === "Escape" && closeEditMode();
+    const closeModalIfEscaped = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeEditMode();
     };
 
     window.addEventListener("keydown", closeModalIfEscaped);
@@ -46,7 +52,7 @@ const EditForm: React.FC<CustomFormProps> = ({
             id="editTask"
             className="input"
             value={updatedTaskName}
-            onInput={(e) => {
+            onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
               setUpdatedTaskName(e.target.value);
             }}
             required
